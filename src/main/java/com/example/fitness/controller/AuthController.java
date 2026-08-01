@@ -1,5 +1,7 @@
 package com.example.fitness.controller;
 
+import com.example.fitness.dto.LoginRequest;
+import com.example.fitness.dto.UserResponse;
 import com.example.fitness.model.User;
 import com.example.fitness.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +22,16 @@ public class AuthController {
         return userService.register(user);
     }
     @PostMapping("/login")
-    public User login(@RequestBody LoginRequest loginRequest){
-        return userService.login(loginRequest.getEmail(), loginRequest.getPassword());
+    public UserResponse login(@RequestBody LoginRequest loginRequest){
+        User user = userService.login(loginRequest.getEmail(), loginRequest.getPassword());
+        return toResponse(user);
     }
 
+    private UserResponse toResponse(User user) {
+        return UserResponse.builder()
+                .email(user.getEmail())
+                .name(user.getName())
+                .updatedAt(user.getUpdatedAt())
+                .build();
+    }
 }

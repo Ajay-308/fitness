@@ -1,4 +1,4 @@
-package com.example.fitness.controller;
+package com.example.fitness.dto;
 
 import lombok.Getter;
 import lombok.Setter;
